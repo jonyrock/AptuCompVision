@@ -13,6 +13,3 @@ def imageShowTest():
 def imageAccessTest():
     image = cv2.imread('testImg.jpg')
     print image[:, 1:3]
-
-def computeBackgroundAvg():
-    return 0

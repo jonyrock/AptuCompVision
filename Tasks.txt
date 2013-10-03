@@ -1,8 +1,8 @@
 ** TODO **
-* Compute back cache
-* Show background mask
 * Find objects
 * Draw rec and write test video
 
 ** DONE **
+* Show background mask
+* Compute back cache
 * Show background

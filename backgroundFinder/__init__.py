@@ -1,8 +1,5 @@
 from abc import abstractmethod
-import cv2
-import pickle
-import os
-
+import numpy as np, cv2, pickle, os
 
 class BackgroundFinder:
     def __init__(self, path):
@@ -19,7 +16,7 @@ class BackgroundFinder:
             res = pickle.load(f)
             f.close()
             return res
-        res = self.computeBack()
+        res = self.computeBack().astype(np.uint8)
         f = open(dumpPath, 'w')
         pickle.dump(res, f)
         f.close()
