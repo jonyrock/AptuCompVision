@@ -1,0 +1,7 @@
+** TODO **
+* Show background
+* Show background mask
+* Find objects
+* Draw rec and write test video
+
+** DONE **
