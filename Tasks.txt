@@ -1,4 +1,5 @@
 ** TODO **
+* Test without grayscale
 * Find objects, cv::floodFill
 * Draw rec and write test video
  

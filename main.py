@@ -2,9 +2,12 @@ import cv2
 from backgroundFinder.avgBackgroundFinder import AvgBackgroundFinder
 import snippents
 import numpy as np
+import tools
 
 # global properties
-videoFilePath = 'Cam1_Outdoor.mp4'
+# videoFilePath = 'Cam1_Outdoor.mp4'
+videoFilePath = 'car-overhead-1.avi'
+
 videoOutFilePath = 'out.avi'
 backgroundFinder = AvgBackgroundFinder(videoFilePath)
 backThreshold = 200
@@ -41,27 +44,29 @@ def computeMask(back):
                              (videoWidth, videoHeight), False)
 
     # while (True):
-    kernel = cv2.getStructuringElement(0, (4, 4))
+    # kernel = cv2.getStructuringElement(0, (4, 4))
     for i in range(900):
         vc.read()
         
-    for i in range(6000):
+    for i in range(6):
         isRead, frame = vc.read()
         if not isRead:
             break
-        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
-        frame = diffToMaskMaker(frame - back, backThreshold).astype(np.uint8)
+        # frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
+        frame -= back
+        frame = tools.map3dTo2d(frame, lambda r,g,b: abs(r) + abs(g) + abs(b))
+        frame = diffToMaskMaker(frame, backThreshold).astype(np.uint8)
         
-        if(i > 1500):
-            frame = cv2.dilate(frame, kernel)
-        if i == 3000:
-            kernel = cv2.getStructuringElement(0, (6, 6))
-        if i == 4500:
-            kernel = cv2.getStructuringElement(1, (6, 6))
+        # if(i > 1500):
+        #     frame = cv2.dilate(frame, kernel)
+        # if i == 3000:
+        #     kernel = cv2.getStructuringElement(0, (6, 6))
+        # if i == 4500:
+        #     kernel = cv2.getStructuringElement(1, (6, 6))
         
-        # cv2.imwrite('img' + str(i) + '.jpg', frame)
+        cv2.imwrite('img' + str(i) + '.jpg', frame)
         
-        writer.write(frame)
+        # writer.write(frame)
         # cv2.imshow('window', frame)
         # k = cv2.waitKey()
         # if k == 27:
