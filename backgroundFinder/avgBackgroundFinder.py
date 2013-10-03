@@ -7,8 +7,8 @@ class AvgBackgroundFinder(BackgroundFinder):
     def addFrame(self, frame):
         self.sumArr += frame
 
-    def getBack(self): 
-        self.sumArr = np.ndarray(shape=(self.height, self.width), dtype=int) * 0
+    def computeBack(self):
+        self.sumArr = np.ndarray(shape=(self.height, self.width), dtype=np.float64) * 0
         frameCount = 0
         while True:
             isRead, frame = self.vc.read()
@@ -17,7 +17,6 @@ class AvgBackgroundFinder(BackgroundFinder):
             frameCount += 1
             frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
             self.addFrame(frame)
-            break
-        if(frameCount == 0):
+        if frameCount == 0:
             raise Exception("Can't read video")
         return self.sumArr / frameCount
