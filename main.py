@@ -7,7 +7,7 @@ import numpy as np
 videoFilePath = 'Cam1_Outdoor.mp4'
 videoOutFilePath = 'out.avi'
 backgroundFinder = AvgBackgroundFinder(videoFilePath)
-backThreshold = 230
+backThreshold = 200
 
 #global vars
 videoWidth = None
@@ -31,9 +31,9 @@ def computeMask(back):
 
     def ifThreshold(x, t):
         if abs(x) > t:
-            return 255
-        else:
             return 0
+        else:
+            return 255
 
     diffToMaskMaker = np.vectorize(ifThreshold)
     # cv2.namedWindow('window', 0)
@@ -41,12 +41,26 @@ def computeMask(back):
                              (videoWidth, videoHeight), False)
 
     # while (True):
-    for i in range(300):
+    kernel = cv2.getStructuringElement(0, (4, 4))
+    for i in range(900):
+        vc.read()
+        
+    for i in range(6000):
         isRead, frame = vc.read()
         if not isRead:
             break
         frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
         frame = diffToMaskMaker(frame - back, backThreshold).astype(np.uint8)
+        
+        if(i > 1500):
+            frame = cv2.dilate(frame, kernel)
+        if i == 3000:
+            kernel = cv2.getStructuringElement(0, (6, 6))
+        if i == 4500:
+            kernel = cv2.getStructuringElement(1, (6, 6))
+        
+        # cv2.imwrite('img' + str(i) + '.jpg', frame)
+        
         writer.write(frame)
         # cv2.imshow('window', frame)
         # k = cv2.waitKey()

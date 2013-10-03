@@ -10,6 +10,8 @@ def imageShow(image):
 def imageShowTest():
     image = cv2.imread('testImg.jpg')
     imageShow(image)
+    
+
 
 
 def imageAccessTest():
@@ -33,4 +35,15 @@ def testWrite():
     cv2.destroyAllWindows()
     video.release()
     
+def testDilate():
+    frame = cv2.imread('img1.jpg')
+    frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
+    # cv2.getStructuringElement()
+    kernel = cv2.getStructuringElement(0, (6, 5))
+    frame = cv2.erode(frame, kernel)
+    imageShow(frame)
+    
+    
 # testWrite()
+
+# testDilate()
