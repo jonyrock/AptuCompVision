@@ -1,10 +1,12 @@
 ** TODO **
-* Test without grayscale
+* Mask for cv::floodfill usage
 * Find objects, cv::floodFill
 * Draw rec and write test video
  
 
 ** DONE **
+* Mask for cv::floodfill test
+* Test without grayscale
 * cv::dilate
 * Test video write
 * Show background mask
