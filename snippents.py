@@ -76,6 +76,6 @@ def testFloodFill2():
 
 # testWrite()
 
-testFloodFill()
+# testFloodFill()
 
 # testDilate()

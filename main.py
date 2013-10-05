@@ -18,7 +18,6 @@ videoWidth = None
 videoHeight = None
 videoFps = None
 
-
 def main():
     print('Start video processing: ' + videoFilePath)
     print('Background computation with: ' + backgroundFinder.__class__.__name__)
@@ -28,11 +27,35 @@ def main():
     print('DONE')
 
 
+def drawObjects(img, xs_recs):
+    for (x, y, w, h) in xs_recs:
+        cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0))
+
+
+def findObjects(mask):
+    zeroMask = np.zeros((videoHeight + 2, videoWidth + 2)).astype(np.uint8)
+    # snippents.imageShow(mask)
+    res = []
+    for i in range(videoHeight):
+        for j in range(videoWidth):
+            c = mask[i, j]
+            if c == np.uint8(255) or c == np.uint8(100):
+                continue
+            (floodRes, floodRec) = cv2.floodFill(mask, zeroMask, (j, i), 100)
+            
+            res.append(floodRec)
+            
+    # snippents.imageShow(mask)
+    return filter(lambda (x,y,w,h): w * h > 30 ,  res)
+
+
 def computeMask(back):
     vc = cv2.VideoCapture(videoFilePath)
+    global videoWidth, videoHeight, videoFps, zeroMask
     videoWidth = int(vc.get(cv2.cv.CV_CAP_PROP_FRAME_WIDTH))
     videoHeight = int(vc.get(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT))
     videoFps = int(vc.get(cv2.cv.CV_CAP_PROP_FPS))
+    
 
     def ifThreshold(x, t):
         if abs(x) > t:
@@ -50,39 +73,19 @@ def computeMask(back):
     for i in range(1300):
         vc.read()
 
-    for i in range(1):
+    for i in range(10):
         isRead, frame = vc.read()
         if not isRead:
             break
 
         originalFrame = frame
-        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY).astype(int)
-        
-        frame -= back.astype(int)
-        # frame = tools.map3dTo2d(frame, lambda r, g, b: int(abs(r)) + abs(g) + abs(b))
-        frame = diffToMaskMaker(frame, backThreshold).astype(np.uint8)
-
-        # if(i > 1500):
-        frame = cv2.dilate(frame, kernel)
-        # if i == 3000:
-        #     kernel = cv2.getStructuringElement(0, (6, 6))
-        # if i == 4500:
-        #     kernel = cv2.getStructuringElement(1, (6, 6))
-
-        # cv2.imwrite('img' + str(i) + '.jpg', frame)
-        
-        # writer.write(originalFrame)
-        # writer.write(frame)
-        
-        cv2.imwrite('img1.jpg', originalFrame)
-        dumpPath = 'imgMask.dump'
-        f = open(dumpPath, 'w')
-        pickle.dump(frame, f)
-        f.close()
-        # cv2.imshow('window', frame)
-        # k = cv2.waitKey()
-        # if k == 27:
-        #     break
+        mask = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY).astype(int)
+        mask -= back.astype(int)
+        mask = diffToMaskMaker(mask, backThreshold).astype(np.uint8)
+        mask = cv2.dilate(mask, kernel)
+        recs = findObjects(mask)
+        drawObjects(originalFrame, recs)
+        writer.write(originalFrame)
 
     writer.release()
 
