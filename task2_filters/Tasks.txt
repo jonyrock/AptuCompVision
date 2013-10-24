@@ -1,0 +1,14 @@
+** TODO **
+* Find objects, cv::floodFill
+* Draw rec and write test video
+ 
+
+** DONE **
+* Mask for cv::floodfill usage
+* Mask for cv::floodfill test
+* Test without grayscale
+* cv::dilate
+* Test video write
+* Show background mask
+* Compute back cache
+* Show background
