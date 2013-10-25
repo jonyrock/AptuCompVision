@@ -4,7 +4,7 @@
     <list default="true" id="49903675-a3ac-4a7f-b05d-ee0837007f5d" name="Default" comment="" />
     <ignored path="task3_dots.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/main.py" changelist="49903675-a3ac-4a7f-b05d-ee0837007f5d" time="1382699458170" ignored="false" />
+    <file path="/main.py" changelist="49903675-a3ac-4a7f-b05d-ee0837007f5d" time="1382701315851" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +27,7 @@
       <file leaf-file-name="main.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="21" selection-start="702" selection-end="702" vertical-scroll-proportion="0.6454849">
+            <state line="14" column="0" selection-start="391" selection-end="391" vertical-scroll-proportion="0.39297658">
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -288,7 +288,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="21" selection-start="702" selection-end="702" vertical-scroll-proportion="0.6454849">
+        <state line="14" column="0" selection-start="391" selection-end="391" vertical-scroll-proportion="0.39297658">
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
