@@ -4,6 +4,7 @@ import os
 
 IMAGE_ORIGINAL_PATH = 'resources/original.png'
 IMAGE_TRANSFORMED_PATH = 'resources/transformed.png'
+THRESHOLD = 0.1
 
 imgA = cv2.imread(IMAGE_ORIGINAL_PATH)
 imgAGray = cv2.cvtColor(imgA,cv2.COLOR_BGR2GRAY)
@@ -22,7 +23,9 @@ imgB[dstB>0.1*dstB.max()]=[0,0,255]
 
 img = np.concatenate((imgA, imgB), axis=1)
 
-
+# for ai in range(0, imgA.shape[0]):
+#     for aj in range(0, imgA.shape[1]):
+        
 
 cv2.imshow('dsttt',img)
 if cv2.waitKey(0) & 0xff == 27:
