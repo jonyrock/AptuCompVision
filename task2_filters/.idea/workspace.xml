@@ -27,7 +27,7 @@
       <file leaf-file-name="main.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="40" selection-start="439" selection-end="439" vertical-scroll-proportion="0.47469458">
+            <state line="37" column="0" selection-start="1076" selection-end="1076" vertical-scroll-proportion="0.7120419">
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
                 <element signature="e#486#721#0" expanded="false" />
@@ -113,7 +113,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="com.jetbrains.python.buildout.BuildoutModulesConfigurable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../DS" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../task3_dots" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
   </component>
@@ -420,7 +420,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="40" selection-start="439" selection-end="439" vertical-scroll-proportion="0.47469458">
+        <state line="37" column="0" selection-start="1076" selection-end="1076" vertical-scroll-proportion="0.7120419">
           <folding>
             <element signature="e#0#18#0" expanded="true" />
             <element signature="e#486#721#0" expanded="false" />

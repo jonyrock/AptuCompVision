@@ -1,46 +1,50 @@
-import numpy as np
 import cv2
-import os
+import numpy as np
+import random
 
 IMAGE_ORIGINAL_PATH = 'resources/original.png'
 IMAGE_TRANSFORMED_PATH = 'resources/transformed.png'
-THRESHOLD = 0.1
+THRESHOLD = 0.09
 
-imgA = cv2.imread(IMAGE_ORIGINAL_PATH)
-imgAGray = cv2.cvtColor(imgA,cv2.COLOR_BGR2GRAY)
-imgB = cv2.imread(IMAGE_TRANSFORMED_PATH)
-imgBGray = cv2.cvtColor(imgB,cv2.COLOR_BGR2GRAY)
+img1 = cv2.imread(IMAGE_ORIGINAL_PATH, 0)       # queryImage
+img2 = cv2.imread(IMAGE_TRANSFORMED_PATH, 0)    # trainImage
 
-dstA = cv2.cornerHarris(imgAGray,3,3,0.04)
-dstA = cv2.dilate(dstA,None)
+# Initiate SIFT detector
+sift = cv2.SIFT()
 
-dstB = cv2.cornerHarris(imgBGray,3,3,0.04)
-dstB = cv2.dilate(dstB,None)
+# find the keypoints and descriptors with SIFT
+kp1, des1 = sift.detectAndCompute(img1, None)
+kp2, des2 = sift.detectAndCompute(img2, None)
 
-# Threshold for an optimal value, it may vary depending on the image.
-imgA[dstA>0.1*dstA.max()]=[0,0,255]
-imgB[dstB>0.1*dstB.max()]=[0,0,255]
+# BFMatcher with default params
+bf = cv2.BFMatcher()
+matches = bf.knnMatch(des1, des2, k=2)
 
-img = np.concatenate((imgA, imgB), axis=1)
+# Apply ratio test
+good = []
+for m, n in matches:
+    if m.distance < THRESHOLD * n.distance:
+        good.append([m])
 
-# for ai in range(0, imgA.shape[0]):
-#     for aj in range(0, imgA.shape[1]):
-        
-
-cv2.imshow('dsttt',img)
-if cv2.waitKey(0) & 0xff == 27:
-    cv2.destroyAllWindows()
-
-# output
-if not os.path.exists('out'):
-    os.mkdir('out')
-    
-    
-
-
-
+def drawMatches(imga, kpa, imgb, kpb, matches):
+    linea = np.concatenate((imga, imgb), axis=1)
+    linea = cv2.cvtColor( linea, cv2.COLOR_GRAY2RGB )
+    for m in matches:
+        pta = (int(kpa[m[0].queryIdx].pt[0]), int(kpa[m[0].queryIdx].pt[1]))
+        ptb = (int(kpb[m[0].trainIdx].pt[0]) + imga.shape[0], int(kpb[m[0].trainIdx].pt[1]))
+        color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        cv2.line(linea, pta, ptb, color, 1)
+        # cv2.line(linea, pt1, pt2, (0,0,255), 3)
+        # None
+    return linea
 
 
+# cv2.drawMatchesKnn expects list of lists as matches.
+imgRes = drawMatches(img1,kp1,img2,kp2,good)
+cv2.imshow('Result', imgRes)
+
+while(cv2.waitKey() != 10): None
+# plt.imshow(img3),plt.show()
 
 
 
