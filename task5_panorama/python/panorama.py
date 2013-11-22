@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from drawMatches import drawMatches
 
 sift = cv2.SIFT()
 bf = cv2.BFMatcher()
@@ -11,7 +12,7 @@ def addSecondToFirst(imga, imgb):
 
     matches = bf.knnMatch(imageKpDes[0][1], imageKpDes[1][1], k=2)
 
-    per20 = len(matches) / 5
+    per20 = len(matches) / 6
     good = sorted(matches, key=lambda (m, n): m.distance - n.distance)[:per20]
     good = [m[0] for m in good]
 
@@ -25,13 +26,16 @@ def addSecondToFirst(imga, imgb):
     corners = np.float32([cornerRT, cornerRB])
     corners = np.float32([corners])
     corners = cv2.perspectiveTransform(corners, H)
-    cornersRT, cornersRB = corners[0][0], corners[0][1]
     
-    rightBorder = max(cornersRT[0], cornersRB[0])
+    
+    rightBorder = max(corners[0][0][0], corners[0][1][0])
 
-    imgH = cv2.warpPerspective(images[1], H, (rightBorder, images[0].shape[1]))
+    imgH = cv2.warpPerspective(images[1], H, (rightBorder, images[0].shape[0]))
+    # cv2.imshow('sad',imgH)
 
     # imgLines = drawMatches(images[0], imageKpDes[0][0], images[1], imageKpDes[1][0], good)
+    # cv2.imshow('img',imgLines)
+    # cv2.waitKey()
 
     resSize = (images[0].shape[0], rightBorder)
     res = np.zeros(resSize, images[0].dtype)

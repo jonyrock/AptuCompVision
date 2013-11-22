@@ -1,15 +1,10 @@
 import cv2
-import numpy as np
 import panorama
-
-IMAGE_01 = 'resources/shanghai/01.jpg'
-IMAGE_02 = 'resources/shanghai/02.jpg'
-IMAGE_03 = 'resources/shanghai/03.jpg'
+import tests
 
 
-imagePaths = [IMAGE_01, IMAGE_02, IMAGE_03]
-
-images = [cv2.resize(cv2.imread(imgPath, 0), (500, 500)) for imgPath in imagePaths]
+imagePaths = tests.test3
+images = [cv2.resize(cv2.imread(imgPath, 0), None, fx = 0.2, fy = 0.2) for imgPath in imagePaths]
 
 res = images[0]
 images = images[1:]
