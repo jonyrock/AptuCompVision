@@ -18,3 +18,9 @@ IMAGE3_02 = 'resources/arprtlby/02.jpg'
 IMAGE3_03 = 'resources/arprtlby/03.jpg'
 
 test3 = [IMAGE3_01, IMAGE3_02, IMAGE3_03]
+
+IMAGE4_01 = 'resources/grandesjorasses/01.jpg'
+IMAGE4_02 = 'resources/grandesjorasses/02.jpg'
+IMAGE4_03 = 'resources/grandesjorasses/03.jpg'
+
+test4 = [IMAGE4_01, IMAGE4_02, IMAGE4_03]

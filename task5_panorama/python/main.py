@@ -3,8 +3,8 @@ import panorama
 import tests
 
 
-imagePaths = tests.test3
-images = [cv2.resize(cv2.imread(imgPath, 0), None, fx = 0.2, fy = 0.2) for imgPath in imagePaths]
+imagePaths = tests.test1
+images = [cv2.resize(cv2.imread(imgPath, 0), None, fx = 0.3, fy = 0.3) for imgPath in imagePaths]
 
 res = images[0]
 images = images[1:]

@@ -7,7 +7,15 @@ bf = cv2.BFMatcher()
 
 
 def addSecondToFirst(imga, imgb):
-    images = [imga, imgb]
+    
+    
+    images = [
+        # cv2.cvtColor(imga, cv2.COLOR_RGB2GRAY).astype(np.uint8), 
+        # cv2.cvtColor(imgb, cv2.COLOR_RGB2GRAY).astype(np.uint8)
+        imga,
+        imgb
+    ]
+    
     imageKpDes = [sift.detectAndCompute(img, None) for img in images]
 
     matches = bf.knnMatch(imageKpDes[0][1], imageKpDes[1][1], k=2)
@@ -33,9 +41,9 @@ def addSecondToFirst(imga, imgb):
     imgH = cv2.warpPerspective(images[1], H, (rightBorder, images[0].shape[0]))
     # cv2.imshow('sad',imgH)
 
-    # imgLines = drawMatches(images[0], imageKpDes[0][0], images[1], imageKpDes[1][0], good)
-    # cv2.imshow('img',imgLines)
-    # cv2.waitKey()
+    imgLines = drawMatches(images[0], imageKpDes[0][0], images[1], imageKpDes[1][0], good)
+    cv2.imshow('img',imgLines)
+    cv2.waitKey()
 
     resSize = (images[0].shape[0], rightBorder)
     res = np.zeros(resSize, images[0].dtype)
