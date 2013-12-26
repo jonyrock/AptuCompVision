@@ -6,7 +6,7 @@ from cellClassifier import getMark, CellType
 import settings
 from settings import xStep, yStep, PLAY_SELLS
 from snippets import imageShow, waitEnter
-from transformations import getTransformed
+from transformations import getTransformed, pointsCell
 
 videoWidth = None
 videoHeight = None
@@ -31,14 +31,24 @@ def cellMarks(img):
 
 def drawCells(img, marks):
     for (i, j) in marks.keys():
+
+
         if (marks[(i, j)] == CellType.RED):
-            cv2.circle(img, (j * xStep + xStep / 2, i * yStep + yStep / 2), 10, (0, 0, 255), -1)
+            cv2.ellipse(img, 
+                        (j * xStep + xStep / 2, i * yStep + yStep / 2), # position 
+                        ((xStep - 20) / 2, (yStep - 20) / 2 ), 0,       # size
+                        360, 0, (15, 15, 230),                            # from, to angle and color
+                        -1)                                             # fill
+            # cv2.circle(img, (j * xStep + xStep / 2, i * yStep + yStep / 2), 10, (0, 0, 255), -1)
         if (marks[(i, j)] == CellType.WHITE):
-            cv2.circle(img, (j * xStep + xStep / 2, i * yStep + yStep / 2), 10, (255, 266, 266), -1)
-        
-        cv2.Rot
+            cv2.ellipse(img, 
+                        (j * xStep + xStep / 2, i * yStep + yStep / 2), # position 
+                        ((xStep - 20) / 2, (yStep - 20) / 2 ), 0,       # size
+                        360, 0, (230, 230, 230),                            # from, to angle and color
+                        -1)                                             # fill
+
         if (marks[(i, j)] == CellType.UNDEFINED):
-            cv2.putText(img, '?',  (j * xStep + xStep / 2 - 10, i * yStep + yStep / 2 + 7), 
+            cv2.putText(img, '?', (j * xStep + xStep / 2 - 10, i * yStep + yStep / 2 + 7),
                         cv2.cv.CV_FONT_HERSHEY_TRIPLEX, 1.0, (255, 255, 255))
 
 
