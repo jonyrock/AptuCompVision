@@ -13,7 +13,7 @@ videoHeight = None
 videoFps = None
 
 
-testImg = cv2.imread('resources/testImg.png')
+testImg = cv2.imread('resources/testImg2.png')
 
 def getBoard():
     img = np.zeros((settings.HEIGHT, settings.WIDTH, 3), np.uint8)

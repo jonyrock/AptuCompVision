@@ -4,6 +4,7 @@ HEIGHT = 448
 
 VIDEO_PATH = 'Cam1_Outdoor.mp4'
 CELL_MASK_PATH = 'resources/cellColorWeight.png'
+CELL_MASK_UNDEFINED_PATH = 'resources/cellColorWeight.png'
 
 xStep = WIDTH / 8
 yStep = HEIGHT / 8
