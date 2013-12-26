@@ -14,7 +14,7 @@ CellType.WHITE = 3
 CellType.UNDEFINED = 4
 
 typesColors = [[11, 11, 11], [7, 7, 15], [24, 24, 24]]
-undefinedColor = [77, 77, 77]
+undefinedColor = [80, 80, 80]
 
 maskImg = cv2.imread(CELL_MASK_PATH)
 maskImg = cv2.cvtColor(maskImg, cv2.COLOR_RGB2GRAY)
@@ -56,7 +56,7 @@ def getMark(img, i_, j_):
         k = 12
 
     undefinedCost = (undefinedColor[0] - avgAU) ** 2 + (undefinedColor[1] - avgBU) ** 2 + (undefinedColor[2] - avgCU) ** 2
-    if undefinedCost > 60:
+    if undefinedCost > 30:
         return 4
 
     typesCost = []

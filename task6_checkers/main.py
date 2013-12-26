@@ -12,8 +12,8 @@ videoWidth = None
 videoHeight = None
 videoFps = None
 
+testImg = cv2.imread('resources/testImg.png')
 
-testImg = cv2.imread('resources/testImg2.png')
 
 def getBoard():
     img = np.zeros((settings.HEIGHT, settings.WIDTH, 3), np.uint8)
@@ -23,9 +23,11 @@ def getBoard():
         cv2.rectangle(img, (j * xStep, i * yStep), ((j + 1) * xStep, (i + 1) * yStep), (30, 30, 30), -1)
     return img
 
+
 def cellMarks(img):
     marks = {(i, j): getMark(img, i, j) for (i, j) in PLAY_SELLS}
     return marks
+
 
 def drawCells(img, marks):
     for (i, j) in marks.keys():
@@ -33,6 +35,12 @@ def drawCells(img, marks):
             cv2.circle(img, (j * xStep + xStep / 2, i * yStep + yStep / 2), 10, (0, 0, 255), -1)
         if (marks[(i, j)] == CellType.WHITE):
             cv2.circle(img, (j * xStep + xStep / 2, i * yStep + yStep / 2), 10, (255, 266, 266), -1)
+        
+        cv2.Rot
+        if (marks[(i, j)] == CellType.UNDEFINED):
+            cv2.putText(img, '?',  (j * xStep + xStep / 2 - 10, i * yStep + yStep / 2 + 7), 
+                        cv2.cv.CV_FONT_HERSHEY_TRIPLEX, 1.0, (255, 255, 255))
+
 
 def getComicZoneFrame(frame):
     img = cv2.resize(frame, (800, 448))
