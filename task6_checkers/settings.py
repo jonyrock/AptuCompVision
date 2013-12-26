@@ -1,6 +1,6 @@
 
-WIDTH = 800
-HEIGHT = 448
+WIDTH = 600
+HEIGHT = 600
 
 VIDEO_PATH = 'Cam1_Outdoor.mp4'
 CELL_MASK_PATH = 'resources/cellColorWeight.png'

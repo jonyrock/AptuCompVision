@@ -31,15 +31,12 @@ def cellMarks(img):
 
 def drawCells(img, marks):
     for (i, j) in marks.keys():
-
-
         if (marks[(i, j)] == CellType.RED):
             cv2.ellipse(img, 
                         (j * xStep + xStep / 2, i * yStep + yStep / 2), # position 
                         ((xStep - 20) / 2, (yStep - 20) / 2 ), 0,       # size
                         360, 0, (15, 15, 230),                            # from, to angle and color
                         -1)                                             # fill
-            # cv2.circle(img, (j * xStep + xStep / 2, i * yStep + yStep / 2), 10, (0, 0, 255), -1)
         if (marks[(i, j)] == CellType.WHITE):
             cv2.ellipse(img, 
                         (j * xStep + xStep / 2, i * yStep + yStep / 2), # position 
@@ -53,18 +50,27 @@ def drawCells(img, marks):
 
 
 def getComicZoneFrame(frame):
-    img = cv2.resize(frame, (800, 448))
-
+    img = cv2.resize(frame, (settings.WIDTH, settings.HEIGHT))
     # imageShow(img)
     img = getTransformed(img)
-    imageShow(img)
+    
 
     board = getBoard()
     # imageShow(board)
 
     marks = cellMarks(img)
     drawCells(board, marks)
-    imageShow(board)
+    
+    return board
 
 
-getComicZoneFrame(testImg)
+#getComicZoneFrame(testImg)
+
+def getOutFrame(img):
+    board = getComicZoneFrame(img)
+    img = cv2.resize(img, (600, 400))
+    board = cv2.resize(board, (400, 400))
+    return np.concatenate((img, board), axis=1)
+
+
+imageShow(getOutFrame(testImg))

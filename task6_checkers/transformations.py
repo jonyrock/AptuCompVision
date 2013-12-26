@@ -4,8 +4,9 @@ import cv2
 import settings
 
 points1 = [[332, 240], [1057, 233], [174, 670], [1227, 663]]
-ratio =  settings.WIDTH * 1.0 / 1366
-points1 = [[int(x * ratio), int(y * ratio)] for x,y in points1 ]
+ratioX =  settings.WIDTH * 1.0 / 1366
+ratioY =  settings.HEIGHT * 1.0 / 768
+points1 = [[int(x * ratioX), int(y * ratioY)] for x,y in points1 ]
 pointsCell = [[0, 0], [settings.WIDTH, 0], [0, settings.HEIGHT], [settings.WIDTH, settings.HEIGHT]]
 points1 = np.array(points1, np.float32)
 pointsCell = np.array(pointsCell, np.float32)
