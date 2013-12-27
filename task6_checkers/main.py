@@ -12,8 +12,11 @@ videoWidth = None
 videoHeight = None
 videoFps = None
 
-testImg = cv2.imread('resources/testImg.png')
 
+
+# testImg = cv2.imread('resources/testImg.png')
+
+videoOutFilePath = 'out.avi'
 
 def getBoard():
     img = np.zeros((settings.HEIGHT, settings.WIDTH, 3), np.uint8)
@@ -23,11 +26,9 @@ def getBoard():
         cv2.rectangle(img, (j * xStep, i * yStep), ((j + 1) * xStep, (i + 1) * yStep), (30, 30, 30), -1)
     return img
 
-
 def cellMarks(img):
     marks = {(i, j): getMark(img, i, j) for (i, j) in PLAY_SELLS}
     return marks
-
 
 def drawCells(img, marks):
     for (i, j) in marks.keys():
@@ -47,7 +48,6 @@ def drawCells(img, marks):
         if (marks[(i, j)] == CellType.UNDEFINED):
             cv2.putText(img, '?', (j * xStep + xStep / 2 - 10, i * yStep + yStep / 2 + 7),
                         cv2.cv.CV_FONT_HERSHEY_TRIPLEX, 1.0, (255, 255, 255))
-
 
 def getComicZoneFrame(frame):
     img = cv2.resize(frame, (settings.WIDTH, settings.HEIGHT))
@@ -72,5 +72,23 @@ def getOutFrame(img):
     board = cv2.resize(board, (400, 400))
     return np.concatenate((img, board), axis=1)
 
+vc = cv2.VideoCapture('resources/vvvv.mpg')
+videoWidth = int(vc.get(cv2.cv.CV_CAP_PROP_FRAME_WIDTH))
 
-imageShow(getOutFrame(testImg))
+videoFps = int(vc.get(cv2.cv.CV_CAP_PROP_FPS))
+
+writer = cv2.VideoWriter(videoOutFilePath, cv2.cv.CV_FOURCC(*'MJPG'), 30,
+                             (600+400, 400), True)
+
+
+allLen = 10000
+for i in range(allLen):
+        isRead, frame = vc.read()
+        if not isRead:
+            break
+        frame = getOutFrame(frame)
+        writer.write(frame)
+        print i , allLen
+        
+writer.release()
+# imageShow(getOutFrame(testImg))
